@@ -3,6 +3,8 @@ A life counter for Magic the Gathering
 
 ![app](https://i.ibb.co/zmYZ6yh/Screenshot-20230831-140141.png)
 
+[Google Play (waiting for approval) ](https://play.google.com/store/apps/details?id=com.victaoforce.life_counter)
+
 
 ## Getting Started
 This project is a open source life counter for Magic the Gathering, for now we can:
