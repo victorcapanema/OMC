@@ -11,6 +11,7 @@ class CustomButton extends StatelessWidget {
       this.textColor = Colors.white,
       this.fontSize = 12,
       this.buttonColor,
+      this.textPadding = true,
       super.key});
 
   final void Function()? onPressed;
@@ -21,6 +22,7 @@ class CustomButton extends StatelessWidget {
   final Color? textColor;
   final double? fontSize;
   final Color? buttonColor;
+  final bool textPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -32,15 +34,20 @@ class CustomButton extends StatelessWidget {
           child: ElevatedButton(
             onPressed: onPressed,
             style: ElevatedButton.styleFrom(
-                disabledBackgroundColor: AppColors.lightGrey,
-                backgroundColor: buttonColor ?? backgroundColor,
-                side: const BorderSide(
-                    width: 2, // the thickness
-                    color: AppColors.lightGrey // the color of the border
-                    ),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40))),
-            child:
-                Text(text, style: TextStyle(color: onPressed == null ? Colors.white : textColor, fontSize: fontSize)),
+              padding: textPadding
+                  ? const EdgeInsets.symmetric(horizontal: 15)
+                  : EdgeInsets.zero,
+              disabledBackgroundColor: AppColors.lightGrey,
+              backgroundColor: buttonColor ?? backgroundColor,
+              side: const BorderSide(
+                  width: 2, // the thickness
+                  color: AppColors.lightGrey // the color of the border
+                  ),
+            ),
+            child: Text(text,
+                style: TextStyle(
+                    color: onPressed == null ? Colors.white : textColor,
+                    fontSize: fontSize)),
           )),
     );
   }

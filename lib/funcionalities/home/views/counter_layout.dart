@@ -13,15 +13,16 @@ class CounterLayout extends StatefulWidget {
   State<CounterLayout> createState() => _CounterLayoutState();
 }
 
-class _CounterLayoutState extends State<CounterLayout> with TickerProviderStateMixin {
+class _CounterLayoutState extends State<CounterLayout>
+    with TickerProviderStateMixin {
   final counterLayoutController = Modular.get<CounterLayoutController>();
-  final List<MaterialColor> colors = [Colors.lightGreen, Colors.red, Colors.yellow, Colors.blue];
 
   @override
   Widget build(BuildContext context) {
     double paddingTop = MediaQuery.of(context).padding.top;
     double paddingBottom = MediaQuery.of(context).padding.bottom;
-    var height = MediaQuery.of(context).size.height - (paddingTop + paddingBottom);
+    var height =
+        MediaQuery.of(context).size.height - (paddingTop + paddingBottom);
     var width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Observer(
@@ -31,7 +32,8 @@ class _CounterLayoutState extends State<CounterLayout> with TickerProviderStateM
           body: SizedBox(
             height: height,
             width: width,
-            child: layoutSelector(counterLayoutController.nPlayers, height, width, listCounters),
+            child: layoutSelector(
+                counterLayoutController.nPlayers, height, width, listCounters),
           ),
         ),
       ),
@@ -44,20 +46,23 @@ Widget layoutSelector(int nPlayers, height, width, listCounters) {
   if (isEven) {
     if (nPlayers == 2) {
       return GridView.builder(
-        gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(childAspectRatio: width / (height / 2), crossAxisCount: 1),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            childAspectRatio: width / (height / 2), crossAxisCount: 1),
         itemCount: nPlayers,
         itemBuilder: (BuildContext context, int i) {
-          return RotatedBox(quarterTurns: i % 2 == 0 ? 2 : 0, child: listCounters[1 - i]);
+          return RotatedBox(
+              quarterTurns: i % 2 == 0 ? 2 : 0, child: listCounters[1 - i]);
         },
       );
     } else {
       return GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            childAspectRatio: (width / 2) / (height / (nPlayers / 2)), crossAxisCount: 2),
+            childAspectRatio: (width / 2) / (height / (nPlayers / 2)),
+            crossAxisCount: 2),
         itemCount: nPlayers,
         itemBuilder: (BuildContext context, int i) {
-          return RotatedBox(quarterTurns: i % 2 == 0 ? 1 : 3, child: listCounters[i]);
+          return RotatedBox(
+              quarterTurns: i % 2 == 0 ? 1 : 3, child: listCounters[i]);
         },
       );
     }
@@ -90,16 +95,19 @@ Widget layoutSelector(int nPlayers, height, width, listCounters) {
         slivers: [
           SliverGrid(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                childAspectRatio: (width / 2) / (height / ((nPlayers + 1) / 2)), crossAxisCount: 2),
+                childAspectRatio: (width / 2) / (height / ((nPlayers + 1) / 2)),
+                crossAxisCount: 2),
             delegate: SliverChildBuilderDelegate(
                 childCount: nPlayers - 1,
-                (context, i) => RotatedBox(quarterTurns: i % 2 == 0 ? 1 : 3, child: listCounters[i])),
+                (context, i) => RotatedBox(
+                    quarterTurns: i % 2 == 0 ? 1 : 3, child: listCounters[i])),
           ),
           SliverToBoxAdapter(
             child: SizedBox(
               width: width,
               height: (height / ((nPlayers + 1) / 2)),
-              child: RotatedBox(quarterTurns: 0, child: listCounters[globalNumPlayers - 1]),
+              child: RotatedBox(
+                  quarterTurns: 0, child: listCounters[globalNumPlayers - 1]),
             ),
           ),
         ],

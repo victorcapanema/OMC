@@ -7,6 +7,7 @@ import 'custom_buttom.dart';
 
 class CDrawer extends StatelessWidget {
   const CDrawer({required this.counterLayoutController, super.key});
+
   final CounterLayoutController counterLayoutController;
 
   @override
@@ -26,7 +27,7 @@ class CDrawer extends StatelessWidget {
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
-               DrawerHeader(
+              DrawerHeader(
                 decoration: const BoxDecoration(color: AppColors.darkGrey),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -34,7 +35,8 @@ class CDrawer extends StatelessWidget {
                     const Text(
                       'Counter Settings',
                       style: TextStyle(fontSize: 30, color: AppColors.grey),
-                    ),  CustomButton(
+                    ),
+                    CustomButton(
                       backgroundColor: AppColors.grey,
                       textColor: AppColors.black2,
                       text: 'About',
@@ -61,11 +63,14 @@ class CDrawer extends StatelessWidget {
                               text: i.toString(),
                               width: 40,
                               height: 40,
+                              textPadding: false,
                               onPressed: () {
                                 counterLayoutController.changeNumPlayers(i);
                               },
                               backgroundColor:
-                                  i == counterLayoutController.nPlayers ? AppColors.darkGrey : Colors.transparent),
+                                  i == counterLayoutController.nPlayers
+                                      ? AppColors.darkGrey
+                                      : Colors.transparent),
                       ],
                     )
                   ],
@@ -89,12 +94,16 @@ class CDrawer extends StatelessWidget {
                                   text: lifeTotals[i].toString(),
                                   height: 50,
                                   width: 50,
+                              textPadding: false,
                                   onPressed: () {
                                     counterLayoutController
-                                        .changeStartingLifeTotal(int.parse(lifeTotals[i].toString()));
-                                    counterLayoutController.changeLifeTotalSelected(i);
+                                        .changeStartingLifeTotal(int.parse(
+                                            lifeTotals[i].toString()));
+                                    counterLayoutController
+                                        .changeLifeTotalSelected(i);
                                   },
-                                  backgroundColor: i == counterLayoutController.lifeTotalIndex
+                                  backgroundColor: i ==
+                                          counterLayoutController.lifeTotalIndex
                                       ? AppColors.darkGrey
                                       : Colors.transparent)
                               : Container(
@@ -104,35 +113,57 @@ class CDrawer extends StatelessWidget {
                                     border: Border.all(
                                         width: 2, // the thickness
                                         color: AppColors.lightGrey),
-                                    color: counterLayoutController.customLifeController.text.isNotEmpty &&
-                                            i == counterLayoutController.lifeTotalIndex
+                                    color: counterLayoutController
+                                                .customLifeController
+                                                .text
+                                                .isNotEmpty &&
+                                            i ==
+                                                counterLayoutController
+                                                    .lifeTotalIndex
                                         ? AppColors.darkGrey
                                         : Colors.black.withOpacity(0.35),
-                                    borderRadius: BorderRadius.circular(40),
+                                    borderRadius: BorderRadius.circular(30),
                                   ),
                                   child: TextFormField(
-                                    controller: counterLayoutController.customLifeController,
+                                    controller: counterLayoutController
+                                        .customLifeController,
                                     onEditingComplete: () {
-                                      counterLayoutController.changeStartingLifeTotal(
-                                          int.parse(counterLayoutController.customLifeController.text));
-                                      counterLayoutController.changeLifeTotalSelected(i);
+                                      counterLayoutController
+                                          .changeStartingLifeTotal(int.parse(
+                                              counterLayoutController
+                                                  .customLifeController.text));
+                                      counterLayoutController
+                                          .changeLifeTotalSelected(i);
                                     },
                                     onFieldSubmitted: (text) {
-                                      counterLayoutController.changeStartingLifeTotal(
-                                          int.parse(counterLayoutController.customLifeController.text));
-                                      counterLayoutController.changeLifeTotalSelected(i);
-                                      FocusManager.instance.primaryFocus?.unfocus();
+                                      counterLayoutController
+                                          .changeStartingLifeTotal(int.parse(
+                                              counterLayoutController
+                                                  .customLifeController.text));
+                                      counterLayoutController
+                                          .changeLifeTotalSelected(i);
+                                      FocusManager.instance.primaryFocus
+                                          ?.unfocus();
                                     },
-                                    style:
-                                        const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600),
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w600),
                                     keyboardType: TextInputType.number,
                                     decoration: InputDecoration(
                                       enabledBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(width: 1, color: Colors.transparent),
-                                          borderRadius: BorderRadius.circular(40)),
+                                          borderSide: const BorderSide(
+                                              width: 1,
+                                              color: Colors.transparent),
+                                          borderRadius:
+                                              BorderRadius.circular(30)),
                                       focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(width: 1, color: Colors.transparent),
-                                          borderRadius: BorderRadius.circular(40)),
+                                          borderSide: const BorderSide(
+                                              width: 1,
+                                              color: Colors.transparent),
+                                          borderRadius:
+                                              BorderRadius.circular(30)),
                                     ),
                                   ),
                                 )
@@ -152,10 +183,21 @@ class CDrawer extends StatelessWidget {
                     ),
                     Wrap(
                       children: [
-                        CustomButton(text: 'Life Points', onPressed: counterLayoutController.resetPLayersLifeTotal),
-                        CustomButton(text: 'Background', onPressed: counterLayoutController.resetPLayersBackground),
-                        CustomButton(text: 'Counters', onPressed: counterLayoutController.resetPLayersCounters),
-                        CustomButton(text: 'All', onPressed: counterLayoutController.resetAllPlayers),
+                        CustomButton(
+                            text: 'Life Points',
+                            onPressed:
+                                counterLayoutController.resetPLayersLifeTotal),
+                        CustomButton(
+                            text: 'Background',
+                            onPressed:
+                                counterLayoutController.resetPLayersBackground),
+                        CustomButton(
+                            text: 'Counters',
+                            onPressed:
+                                counterLayoutController.resetPLayersCounters),
+                        CustomButton(
+                            text: 'All',
+                            onPressed: counterLayoutController.resetAllPlayers),
                       ],
                     )
                   ],
@@ -176,14 +218,19 @@ class CDrawer extends StatelessWidget {
                             text: counterLayoutController.isSearch
                                 ? 'Random Card BG'
                                 : 'Cooldown ${counterLayoutController.timerCount}',
+                            onPressed: counterLayoutController.isSearch
+                                ? counterLayoutController.randomBackground
+                                : null),
+                        CustomButton(
+                            text: 'Random Color BG',
                             onPressed:
-                                counterLayoutController.isSearch ? counterLayoutController.randomBackground : null),
-                        CustomButton(text: 'Random Color BG', onPressed: counterLayoutController.randomColorBackground),
+                                counterLayoutController.randomColorBackground),
                         CustomButton(
                             text: 'Gatherer',
                             onPressed: () {
                               Modular.to.pop(context);
-                              Modular.to.pushNamed('/cardPage', arguments: true);
+                              Modular.to
+                                  .pushNamed('/cardPage', arguments: true);
                             }),
                         CustomButton(
                             text: 'Storm & Mana',
@@ -204,24 +251,26 @@ class CDrawer extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               ListTile(
-                title: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  const Text(
-                    'LAYOUT',
-                    style: TextStyle(color: AppColors.grey),
-                  ),
-                  Wrap(children: [
-                    CustomButton(
-                        text: 'Hide P. Name',
-                        onPressed: () {
-                          counterLayoutController.changeNameStatus();
-                        }),
-                    CustomButton(
-                        text: 'B/W Font',
-                        onPressed: () {
-                          counterLayoutController.changePlayersFontColors();
-                        }),
-                  ]),
-                ]),
+                title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'LAYOUT',
+                        style: TextStyle(color: AppColors.grey),
+                      ),
+                      Wrap(children: [
+                        CustomButton(
+                            text: 'Hide P. Name',
+                            onPressed: () {
+                              counterLayoutController.changeNameStatus();
+                            }),
+                        CustomButton(
+                            text: 'B/W Font',
+                            onPressed: () {
+                              counterLayoutController.changePlayersFontColors();
+                            }),
+                      ]),
+                    ]),
               ),
             ],
           ),
